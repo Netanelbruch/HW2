@@ -4,13 +4,14 @@
 int main(){
 char x;
 int i=0,j=0;
-scanf("%c", &x);
+
 
 
 int matrix[N][N];
 
 do
 {
+    scanf("%c", &x);
     if (x == 'A')
     {
         A(matrix);
@@ -26,7 +27,7 @@ do
         C(matrix, i, j);
     }
     
-    scanf("%c", &x);
+    
     
 } while (x != 'D');
 
