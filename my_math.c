@@ -2,18 +2,21 @@
 #include "my_math.h"
 
 
-
-
+// void print(int arr[N][N]){
+//     for(int i = 0; i<N ; i++)
+//         {
+//             for (int j = 0; j< N; j++)
+//             {
+                
+//                 printf("%d ", arr[i][j]);
+//             }
+//             printf("\n");
+//         }
+// }
 
 
 int min(int num1, int num2){
     
-    if (num1 == num2)
-    {
-        return num1;
-    }
-    
-
     if (num1<num2)
     {
         return num1;
@@ -39,32 +42,43 @@ void A(int arr[N][N])
 
     }
 
-      
+
     for (int i = 0; i < N; i++)
     {
         for (int j = 0; j < N; j++)
         {
-
-        if (i==j)
-        {
-            continue;
-        }
-        
-
+            if (j==i)
+            {
+                continue;
+            }
+            
            for (int k = 0; k < N; k++)
            {
-
-               if (i == k && j == k)
-               {
+              
+                if(k == i || k==j){
                     continue;
-               }
-					
+                }    
+
+                if ( arr[j][i] == 0 ||  arr[i][k] == 0)
+                {
+                    continue;
+                }
+
                 
-                arr[j][k] = min(arr[j][k], arr[j][i] + arr[i][k]); 
+
+                if (arr[j][k] == 0 && j!=k) 
+                {
+                    arr[j][k] = arr[j][i] + arr[i][k];
+                } 
+
+                else{
+                    arr[j][k] = min(arr[j][k], arr[j][i] + arr[i][k]); 
+                }
+                
+                
            }
-           
+              
         }
-        
     }
 
 }
@@ -104,44 +118,3 @@ void C(int matrix[N][N], int i, int j)
 
 
 
-int main(){
-char x;
-int i=0,j=0;
-scanf("%c", &x);
-
-
-int matrix[N][N];
-
-do
-{
-    if (x == 'A')
-    {
-        A(matrix);
-        for(int i = 0; i<N ; i++)
-        {
-            for (int j = 0; j< N; j++)
-            {
-                
-                printf("%d ", matrix[i][j]);
-            }
-            printf("\n");
-
-        }
-    }
-    if (x == 'B')
-    {
-        scanf("%d %d", &i, &j);
-        B(matrix, i, j);
-    }
-       if (x == 'C')
-    {
-        scanf("%d %d", &i, &j);
-        C(matrix, i, j);
-    }
-    
-    scanf("%c", &x);
-    
-} while (x != 'D');
-
-    return 0;
-} 
