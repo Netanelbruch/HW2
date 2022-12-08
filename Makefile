@@ -4,18 +4,26 @@ FLAGS= -Wall -g
 
 OBJEKTS_MAIN=main.c
 OBJEKTS_MAINO=main.o
+OBJEKTS_MATO=my_mat.o
+OBJEKTS_MATC=my_mat.c
 
 
-main: $(OBJEKTS_MAINO) my_math.o my_math.h
-	$(CC) -o connections $(OBJEKTS_MAINO) my_math.o 
+all: connections 
 
+connections: $(OBJEKTS_MAINO) libmy_mat.a
+	$(CC) -o connections $(OBJEKTS_MAINO) my_mat.a
 
-main.o: $(OBJEKTS_MAIN) my_math.h
+libmy_mat.a: $(OBJEKTS_MATO)
+	$(AR) -rcs my_mat.a $(OBJEKTS_MATO)
+
+main.o: $(OBJEKTS_MAIN) my_mat.h
 	$(CC) $(FLAGS) -c $(OBJEKTS_MAIN) 
 
-my_math.o: my_math.c my_math.h
-	$(CC) $(FLAGS) -c my_math.c 
+my_math.o: $(OBJEKTS_MATC) my_mat.h
+	$(CC) $(FLAGS) -c $(OBJEKTS_MATC) 
 
+
+.PHONY: clean all
 
 clean:
 	rm -f *.o connections *.a
